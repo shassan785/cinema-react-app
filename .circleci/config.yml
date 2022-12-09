@@ -48,13 +48,13 @@ jobs:
       - run:
           name: Deploy to AWS S3
           command: |
-            if ["CIRCLE_BRANCH" == "master"]
+            if ["CURRENT_BRANCH" == "master"]
             then
               aws --region ${AWS_REGION} s3 sync ~/repo/build s3://${AWS_PROD_BUCKET} --delete
-            elif ["CIRCLE_BRANCH" == "staging"]
+            elif ["CURRENT_BRANCH" == "staging"]
             then
               aws --region ${AWS_REGION} s3 sync ~/repo/build s3://${AWS_STAGING_BUCKET} --delete
-            else ["CIRCLE_BRANCH" == "develop"]
+            else ["CURRENT_BRANCH" == "develop"]
               aws --region ${AWS_REGION} s3 sync ~/repo/build s3://${AWS_DEV_BUCKET} --delete
             fi
   deploy-to-aws-cloudfront:
@@ -85,13 +85,13 @@ jobs:
           name: Deploy to AWS Cloudfront
           command: |
             aws configure set preview.cloudfront true
-            if ["CIRCLE_BRANCH" == "master"]
+            if ["CURRENT_BRANCH" == "master"]
             then
               aws cloudfront create-invalidation --distribution-id ${PROD_DISTRIBUTION_ID} --path /\*  
-            elif ["CIRCLE_BRANCH" == "staging"]
+            elif ["CURRENT_BRANCH" == "staging"]
             then
               aws cloudfront create-invalidation --distribution-id ${STAGING_DISTRIBUTION_ID} --path /\*
-            else ["CIRCLE_BRANCH" == "develop"]
+            else ["CURRENT_BRANCH" == "develop"]
               aws cloudfront create-invalidation --distribution-id ${DEV_DISTRIBUTION_ID} --path /\*
             fi        
 workflows:
@@ -109,7 +109,7 @@ workflows:
                 - master    
       - deploy-to-aws-cloudfront:
           requires:
-            - build
+            - deploy-to-aws-s3
           filters:
             branches:
               only:
