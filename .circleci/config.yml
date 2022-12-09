@@ -23,7 +23,7 @@ jobs:
           key: app-{{ checksum "package.json" }}
   deploy-to-aws-s3:
     docker:
-      - image: circle/node@latest
+      - image: circle/node:latest
     working_directory: ~/repo
     steps:
       - checkout
