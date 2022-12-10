@@ -53,12 +53,12 @@ jobs:
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]
             then
-              AWS_PROFILE=circle-sadia-office aws s3 sync ~/repo/build s3://${AWS_PROD_BUCKET} --region ${AWS_REGION} --delete
+              aws --profile sadia-office s3 sync ~/repo/build s3://${AWS_PROD_BUCKET} --region ${AWS_REGION} --delete
             elif [ "${CIRCLE_BRANCH}" == "staging" ]
             then
-              AWS_PROFILE=circle-sadia-office aws s3 sync ~/repo/build s3://${AWS_STAGING_BUCKET} --region ${AWS_REGION} --delete
+              aws --profile sadia-office s3 sync ~/repo/build s3://${AWS_STAGING_BUCKET} --region ${AWS_REGION} --delete
             else [ "${CIRCLE_BRANCH}" == "develop" ]
-              AWS_PROFILE=circle-sadia-office aws s3 sync ~/repo/build s3://${AWS_DEV_BUCKET} --region ${AWS_REGION} --delete
+              aws --profile sadia-office s3 sync ~/repo/build s3://${AWS_DEV_BUCKET} --region ${AWS_REGION} --delete
             fi
   deploy-to-aws-cloudfront:
     docker:
@@ -88,13 +88,13 @@ jobs:
           name: Deploy to AWS Cloudfront
           command: |
             aws configure set preview.cloudfront true
-            if ["CIRCLE_BRANCH" == "master"]
+            if [ "${CIRCLE_BRANCH}" == "master" ]
             then
               aws cloudfront create-invalidation --distribution-id ${PROD_DISTRIBUTION_ID} --path /\*  
-            elif ["CIRCLE_BRANCH" == "staging"]
+            elif [ "${CIRCLE_BRANCH}" == "staging" ]
             then
               aws cloudfront create-invalidation --distribution-id ${STAGING_DISTRIBUTION_ID} --path /\*
-            else ["CIRCLE_BRANCH" == "develop"]
+            else [ "${CIRCLE_BRANCH}" == "develop" ]
               aws cloudfront create-invalidation --distribution-id ${DEV_DISTRIBUTION_ID} --path /\*
             fi        
 workflows:
