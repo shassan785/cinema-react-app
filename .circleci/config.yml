@@ -51,13 +51,13 @@ jobs:
       - run:
           name: Deploy to AWS S3
           command: |
-            if ["CIRCLE_BRANCH" == "master"]
+            if [ "${CIRCLE_BRANCH}" == "master" ]
             then
               AWS_PROFILE=circle-sadia-office aws s3 sync ~/repo/build s3://${AWS_PROD_BUCKET} --region ${AWS_REGION} --delete
-            elif ["CIRCLE_BRANCH" == "staging"]
+            elif [ "${CIRCLE_BRANCH}" == "staging" ]
             then
               AWS_PROFILE=circle-sadia-office aws s3 sync ~/repo/build s3://${AWS_STAGING_BUCKET} --region ${AWS_REGION} --delete
-            else ["CIRCLE_BRANCH" == "develop"]
+            else [ "${CIRCLE_BRANCH}" == "develop" ]
               AWS_PROFILE=circle-sadia-office aws s3 sync ~/repo/build s3://${AWS_DEV_BUCKET} --region ${AWS_REGION} --delete
             fi
   deploy-to-aws-cloudfront:
