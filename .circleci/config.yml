@@ -50,12 +50,12 @@ jobs:
           command: |
             if ["CIRCLE_BRANCH" == "master"]
             then
-              aws --profile sadia-office s3 sync --region ${AWS_REGION} ~/repo/build s3://${AWS_PROD_BUCKET} --delete
+              AWS_PROFILE=circle-sadia-office aws s3 sync ~/repo/build s3://${AWS_PROD_BUCKET} --region ${AWS_REGION} --delete
             elif ["CIRCLE_BRANCH" == "staging"]
             then
-              aws --profile sadia-office s3 sync --region ${AWS_REGION} ~/repo/build s3://${AWS_STAGING_BUCKET} --delete
+              AWS_PROFILE=circle-sadia-office aws s3 sync ~/repo/build s3://${AWS_STAGING_BUCKET} --region ${AWS_REGION} --delete
             else ["CIRCLE_BRANCH" == "develop"]
-              aws --profile sadia-office s3 sync --region ${AWS_REGION} ~/repo/build s3://${AWS_DEV_BUCKET} --delete
+              AWS_PROFILE=circle-sadia-office aws s3 sync ~/repo/build s3://${AWS_DEV_BUCKET} --region ${AWS_REGION} --delete
             fi
   deploy-to-aws-cloudfront:
     docker:
