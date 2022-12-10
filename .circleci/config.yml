@@ -75,7 +75,7 @@ jobs:
           command: |
             sudo apt-get -y -qq update
             sudo apt-get install -y awscli
-            sudo apt-get install -y python3-pip python-dev-is-pyhton2 build-essential
+            sudo apt-get install -y python3-pip python-dev-is-python2 build-essential
       - run:
           name: Build Project
           command: |
