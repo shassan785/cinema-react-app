@@ -14,7 +14,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "lint": "eslint 'src/**/*.js*'",
+    "lint": "eslint 'src/**/*.js'",
     "test": "react-scripts test"
   },
   "eslintConfig": {
