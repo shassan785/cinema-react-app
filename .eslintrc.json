@@ -6,16 +6,31 @@
     "extends": [
         "eslint:recommended",
         "plugin:react/recommended"
+    
     ],
-    "overrides": [
-    ],
+    "globals": {
+        "Atomics": "readonly",
+        "SharedArrayBuffer": "readonly"
+    },
     "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
         "ecmaVersion": "latest",
         "sourceType": "module"
+    },
+    "settings": {
+        "react": {
+          "version": "18.0.0"
+        }
     },
     "plugins": [
         "react"
     ],
     "rules": {
+        "semi": [2, "always"],
+      "space-before-function-paren": [0, {"anonymous": "always", "named": "always"}],
+      "camelcase": 0,
+      "no-return-assign": 0
     }
 }
