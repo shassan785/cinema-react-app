@@ -16,9 +16,9 @@ aliases:
       command: echo ${CIRCLE_BRANCH} 
   - &restore-cache
     restore_cache:
-      key:
-        -app-{{ checksum "package.json" }}
-        -app-
+      keys:
+        - app-{{ checksum "package.json" }}
+        - app-
   - &install-dependencies
     run:
       name: install dependencies
