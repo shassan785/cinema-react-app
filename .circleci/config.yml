@@ -56,8 +56,15 @@ jobs:
       - *restore-cache
       - *install-dependencies
       - *save-cache
-      - build:
-          context: sonarcloud
+  sonar:
+    executor: app-executor
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/repo
+      - sonarcloud/scan:
+          sonar_env_variable: SONAR_TOKEN
+    
   # linting:
   #   executor: app-executor
   #   steps:
@@ -111,6 +118,9 @@ workflows:
   build_and_deploy:
     jobs: 
       - build
+      - sonar:
+          requires:
+            - build
       # - linting:
       #     requires:
       #       - build
@@ -122,7 +132,7 @@ workflows:
         #       - master
       - deploy-to-aws-s3:
           requires:
-            - build
+            - sonar
             # - linting
           filters:
             branches:
