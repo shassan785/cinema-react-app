@@ -62,8 +62,10 @@ jobs:
       - checkout
       - attach_workspace:
           at: ~/repo
-      - sonarcloud/scan:
-          sonar_env_variable: SONAR_TOKEN
+      - sonar_token_variable_name:
+          default: SONAR_TOKEN
+          description: the name of the environment variable where the SonarCloud API token is stored
+          type: env_var_name
     
   # linting:
   #   executor: app-executor
