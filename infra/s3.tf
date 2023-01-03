@@ -22,6 +22,17 @@ resource "aws_s3_bucket_versioning" "bucket_versioning" {
     status = "Enabled"
   }
 }
+resource "aws_s3_bucket_website_configuration" "cinema_app_bucket_website" {
+  bucket = aws_s3_bucket.cinema_app_s3_bucket.id
+
+  index_document {
+    suffix = "index.html"
+  }
+
+  error_document {
+    key = "index.html"
+  }
+}
 resource "aws_s3_bucket_policy" "cinema_app_bucket_policy" {
   bucket = aws_s3_bucket.cinema_app_s3_bucket.id
   policy = data.aws_iam_policy_document.policy_doc.json
