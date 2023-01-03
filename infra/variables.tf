@@ -1,5 +1,5 @@
 variable "prefix" {
-  default = "cinema-react-app"
+  default = "cinema-react-sh"
 }
 
 variable "project" {
