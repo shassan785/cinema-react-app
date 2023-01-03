@@ -56,8 +56,7 @@ jobs:
       - *restore-cache
       - *install-dependencies
       - *save-cache
-      - build:
-          context: sonarcloud
+    
   # linting:
   #   executor: app-executor
   #   steps:
@@ -110,16 +109,13 @@ jobs:
 workflows:
   build_and_deploy:
     jobs: 
-      - build
-      # - linting:
-      #     requires:
-      #       - build
-        # filters:
-        #   branches:
-        #     only:
-        #       - develop
-        #       - staging
-        #       - master
+      - build:
+        filters:
+          branches:
+            only:
+              - develop
+              - staging
+              - master
       - deploy-to-aws-s3:
           requires:
             - build
