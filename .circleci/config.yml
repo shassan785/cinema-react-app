@@ -214,7 +214,7 @@ workflows:
             requires:
               - deploy-to-aws-cloudfront 
       - terraform-destroy:
-        requires:
+          requires:
             - hold
           filters:
             branches:
