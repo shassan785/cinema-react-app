@@ -8,9 +8,9 @@ executors:
     docker:
       - image: circleci/node:latest
     working_directory: ~/repo
-terraform-executor:
+  terraform-executor:
     docker:
-      - image: hashicorp/terraform:1.3.6
+      - image: hashicorp/terraform:latest
 aliases:
   - &show-current-branch-name
     run:
