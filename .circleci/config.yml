@@ -183,7 +183,7 @@ workflows:
                 - staging
                 - master
       - terraform-plan-and-apply:
-        requires:
+          requires:
             - terraform-validate
           filters:
             branches:
