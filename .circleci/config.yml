@@ -173,10 +173,27 @@ workflows:
               - develop
               - staging
               - master
-      - deploy-to-aws-s3:
+      - terraform-validate:
           requires:
             - build
-            # - linting
+          filters:
+            branches:
+              only: 
+                - develop
+                - staging
+                - master
+      - terraform-plan-and-apply:
+        requires:
+            - terraform-validate
+          filters:
+            branches:
+              only: 
+                - develop
+                - staging
+                - master
+      - deploy-to-aws-s3:
+          requires:
+            - terraform-plan-and-apply
           filters:
             branches:
               only:
@@ -191,4 +208,17 @@ workflows:
               only:
                 - develop
                 - staging
-                - master  
+                - master 
+      - hold:
+          type: approval
+            requires:
+              - deploy-to-aws-cloudfront 
+      - terraform-destroy:
+        requires:
+            - hold
+          filters:
+            branches:
+              only: 
+                - develop
+                - staging
+                - master
