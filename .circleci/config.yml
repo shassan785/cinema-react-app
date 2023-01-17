@@ -57,6 +57,13 @@ jobs:
       - *restore-cache
       - *install-dependencies
       - *save-cache
+      - run:
+          name: Copy Infra Folder
+          command: cp -r infra artifacts/infra
+      - persists_to_workspace:
+          root: ./
+          paths:
+            - artifacts
     
   # linting:
   #   executor: app-executor
