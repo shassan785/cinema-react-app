@@ -65,7 +65,7 @@ jobs:
       - persists_to_workspace:
           root: .
           paths:
-            - artifacts
+            - artifacts/*
     
   # linting:
   #   executor: app-executor
@@ -112,7 +112,7 @@ jobs:
       - persists_to_workspace:
           root: .
           paths:
-            - artifacts
+            - artifacts/*
       
   deploy-to-aws-s3:
     executor: app-executor
