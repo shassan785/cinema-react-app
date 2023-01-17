@@ -63,7 +63,7 @@ jobs:
           name: Copy Infra Folder
           command: cp -r infra artifacts/infra
       - persists_to_workspace:
-          root: ./
+          root: .
           paths:
             - artifacts
     
@@ -110,7 +110,7 @@ jobs:
             terraform output cinema_app_bucket_name > ../cinema_bucket_name.txt
             terraform output cloudfront_distribution_id > ../cloudfront_distribution_id.txt
       - persists_to_workspace:
-          root: ./
+          root: .
           paths:
             - artifacts
       
